@@ -25,7 +25,18 @@ app.get('/puppies', async (req, res, next) => {
 // Respond to the request by sending a success message
 app.post('/puppies', async (req, res, next) => {
     // Your code here
+
+    const newPuppy = await Puppy.create(req.body)
+    res.json({message : 'successful',
+    data : newPuppy
 })
+//   const {name, age_yrs, weight_lbs, microchipped, breed} = req.body;
+// const newPuppy = await Puppy.create({name,age_yrs,weight_lbs,microchipped,breed})
+// res.json({message : 'successful',
+// data : newPuppy
+// })
+})
+
 
 
 // Root route - DO NOT MODIFY
@@ -36,5 +47,5 @@ app.get('/', (req, res) => {
 });
 
 // Set port and listen for incoming requests - DO NOT MODIFY
-const port = 5000;
+const port = 5001;
 app.listen(port, () => console.log('Server is listening on port', port));
