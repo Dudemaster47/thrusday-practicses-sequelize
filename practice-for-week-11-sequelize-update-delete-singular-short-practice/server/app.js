@@ -20,13 +20,28 @@ app.get('/puppies', async (req, res, next) => {
 
 // STEP 1: Update a puppy by id
 app.put('/puppies/:puppyId', async (req, res, next) => {
-    // Your code here
-})
+    const updatePup = await Puppy.findByPk(req.params.puppyId);
+
+    const {age_yrs, weight_lbs, microchipped} = req.body
+
+    updatePup.update(req.body);
+    
+    res.json({
+        message : 'successful',
+        data: updatePup
+    });
+});
 
 
 // STEP 2: Delete a puppy by id
 app.delete('/puppies/:puppyId', async (req, res, next) => {
-    // Your code here
+    const ripPup = await Puppy.findByPk(req.params.puppyId);
+
+    await ripPup.destroy();
+
+    res.json({
+        message : `The puppy has been put down :(`
+    })
 })
 
 
@@ -38,5 +53,5 @@ app.get('/', (req, res) => {
 });
 
 // Set port and listen for incoming requests - DO NOT MODIFY
-const port = 5000;
+const port = 5002;
 app.listen(port, () => console.log('Server is listening on port', port));
